@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VIP BOOTH | Match Admin</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <style>
+        :root { --dark: #0a0a0a; --panel: #1a1a1a; --text: #e0e0e0; --neon-green: #a3ff00; --danger-red: #ff3333; --blue: #3388ff; --border: #333; }
+        * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: var(--dark); color: var(--text); margin: 0; padding: 15px; padding-bottom: 50px; }
+        .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid var(--neon-green); padding-bottom: 10px; }
+        .title { color: var(--neon-green); font-size: 20px; font-weight: 900; letter-spacing: 2px; margin: 0; }
+        .admin-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 20px; }
+        .card-title { font-size: 14px; font-weight: bold; margin-top: 0; margin-bottom: 15px; color: white; border-bottom: 1px solid #333; padding-bottom: 10px;}
+        
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 10px; color: #aaa; margin-bottom: 5px; text-transform: uppercase; font-weight: bold; }
+        .admin-input, select.admin-input { width: 100%; background: #000; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 6px; font-size: 14px; outline: none; }
+        textarea.admin-input { min-height: 80px; font-family: monospace; font-size: 13px; }
+        
+        .row-grid { display: flex; gap: 10px; margin-bottom: 10px; }
+        .row-grid > div { flex: 1; }
+        
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; text-transform: uppercase; margin-bottom: 10px;}
+        .btn-green { background: var(--neon-green); color: black; }
+        .btn-blue { background: var(--blue); color: white; }
+        .btn-red { background: var(--danger-red); color: white; }
+        .btn-gray { background: #555; color: white; }
+        #status-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #222; text-align: center; padding: 10px; font-size: 12px; font-weight: bold; color: var(--neon-green); border-top: 1px solid var(--border); }
+        .highlight-box { border: 2px dashed #FFD700; padding: 10px; border-radius: 8px; background: rgba(255, 215, 0, 0.05); margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="header"><h1 class="title">DIRECTOR BOOTH</h1></div>
+
+    <div class="admin-card" style="border-top: 3px solid var(--blue);">
+        <h3 class="card-title">🏟️ 1. MAIN SCORE & TEAM</h3>
+        <div class="highlight-box">
+            <select id="batting-team" class="admin-input" style="background: #222; font-weight: bold; color:#FFD700;">
+                <option value="PAK">🇵🇰 PAKISTAN is Batting</option>
+                <option value="SL">🇱🇰 SRI LANKA is Batting</option>
+            </select>
+        </div>
+        <div class="row-grid">
+            <div><label>PAK Score</label><input type="text" id="pak-score" class="admin-input" placeholder="15/0"></div>
+            <div><label>SL Score</label><input type="text" id="sl-score" class="admin-input" placeholder="Yet to bat"></div>
+        </div>
+        <div class="row-grid">
+            <div><label>Overs / Status</label><input type="text" id="match-status" class="admin-input" placeholder="16.1 OVERS"></div>
+            <div><label>Toss</label><input type="text" id="toss-info" class="admin-input" placeholder="PAK elected to bat"></div>
+        </div>
+        <div class="input-group"><label>Target / Mission</label><input type="text" id="mission-info" class="admin-input" placeholder="TARGET 177"></div>
+    </div>
+
+    <div class="admin-card" style="border-top: 3px solid #ff00ff;">
+        <h3 class="card-title">🏏 2. LIVE CREASE TRACKER</h3>
+        
+        <label style="color:white; font-size:12px; display:block; margin-bottom:5px;">BATSMAN 1 (On Strike)</label>
+        <div class="row-grid">
+            <div style="flex:2"><input type="text" id="b1-name" class="admin-input" placeholder="Name (e.g. Babar Azam)"></div>
+            <div><input type="number" id="b1-runs" class="admin-input" placeholder="Runs"></div>
+            <div><input type="number" id="b1-balls" class="admin-input" placeholder="Balls"></div>
+        </div>
+
+        <label style="color:white; font-size:12px; display:block; margin-bottom:5px;">BATSMAN 2</label>
+        <div class="row-grid">
+            <div style="flex:2"><input type="text" id="b2-name" class="admin-input" placeholder="Name"></div>
+            <div><input type="number" id="b2-runs" class="admin-input" placeholder="Runs"></div>
+            <div><input type="number" id="b2-balls" class="admin-input" placeholder="Balls"></div>
+        </div>
+
+        <label style="color:white; font-size:12px; display:block; margin-bottom:5px; margin-top: 15px;">CURRENT BOWLER</label>
+        <div class="row-grid">
+            <div style="flex:2"><input type="text" id="bowl-name" class="admin-input" placeholder="Name (e.g. Hasaranga)"></div>
+            <div style="flex:1"><input type="text" id="bowl-fig" class="admin-input" placeholder="Fig (e.g. 2-15)"></div>
+        </div>
+
+        <div class="input-group">
+            <label style="color:#00ffcc;">🎾 RECENT BALLS (Separate by space or comma)</label>
+            <input type="text" id="recent-balls" class="admin-input" placeholder="e.g. 1 0 4 W 6 1">
+            <p style="font-size:9px; color:#888; margin-top:5px;">W = Red, 4 = Blue, 6 = Purple. Max 6 items looks best.</p>
+        </div>
+
+        <button class="btn btn-red" onclick="pushOverrideScore()" style="margin-top: 10px; font-size: 16px;">🚨 PUSH ALL TO FANS</button>
+        <button class="btn btn-gray" onclick="restoreAPI()">🔄 CLEAR & RESTORE API</button>
+    </div>
+
+    <div class="admin-card" style="border-top: 3px solid var(--neon-green);">
+        <h3 class="card-title">📝 3. SQUAD MANAGER</h3>
+        <div class="input-group"><textarea id="pak-squad" class="admin-input" placeholder="Paste PAK 11 here..."></textarea></div>
+        <div class="input-group"><textarea id="sl-squad" class="admin-input" placeholder="Paste SL 11 here..."></textarea></div>
+        <button class="btn btn-green" onclick="pushSquads()">✅ LOCK SQUADS</button>
+    </div>
+
+    <div class="admin-card" style="border-top: 3px solid var(--danger-red);">
+        <h3 class="card-title">🛡️ 4. MODERATION HUB</h3>
+        <div class="input-group"><input type="text" id="admin-msg" class="admin-input" placeholder="Official announcement..."></div>
+        <button class="btn btn-blue" onclick="sendAnnouncement()">📢 SEND TEXT</button>
+        <div class="input-group"><input type="text" id="admin-img" class="admin-input" placeholder="Image URL (Imgur, etc)"></div>
+        <button class="btn btn-blue" onclick="sendAdminImage()">📷 BROADCAST IMAGE</button>
+        <button class="btn btn-red" style="margin-top: 20px;" onclick="nukeChat()">⚠️ NUKE ENTIRE CHAT</button>
+    </div>
+
+    <div id="status-bar">SYSTEM READY</div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCW3wsozJKqpx4hc--8PXu3FR0FfqPaOW4",
+        authDomain: "pakistan-versus-sri-lanka.firebaseapp.com",
+        databaseURL: "https://pakistan-versus-sri-lanka-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "pakistan-versus-sri-lanka"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function showStatus(msg, color = "var(--neon-green)") {
+        const bar = document.getElementById('status-bar'); bar.style.color = color; bar.innerText = msg;
+        setTimeout(() => { bar.innerText = "SYSTEM READY"; bar.style.color = "var(--neon-green)"; }, 3000);
+    }
+
+    function pushOverrideScore() {
+        const data = {
+            override: true,
+            batting: document.getElementById('batting-team').value,
+            pak: document.getElementById('pak-score').value.trim(),
+            sl: document.getElementById('sl-score').value.trim(),
+            status: document.getElementById('match-status').value.trim(),
+            toss: document.getElementById('toss-info').value.trim(),
+            margin: document.getElementById('mission-info').value.trim(),
+            // The Live Action Data
+            b1n: document.getElementById('b1-name').value.trim(),
+            b1r: document.getElementById('b1-runs').value.trim(),
+            b1b: document.getElementById('b1-balls').value.trim(),
+            b2n: document.getElementById('b2-name').value.trim(),
+            b2r: document.getElementById('b2-runs').value.trim(),
+            b2b: document.getElementById('b2-balls').value.trim(),
+            bowlN: document.getElementById('bowl-name').value.trim(),
+            bowlF: document.getElementById('bowl-fig').value.trim(),
+            recentB: document.getElementById('recent-balls').value.trim()
+        };
+        
+        db.ref('admin_controls/score').set(data).then(() => showStatus("🚨 BROADCAST UPDATED!", "var(--danger-red)"));
+    }
+
+    function restoreAPI() {
+        db.ref('admin_controls/score').set({ override: false }).then(() => showStatus("🔄 API RESTORED AUTOMATICALLY", "var(--blue)"));
+    }
+
+    function pushSquads() {
+        const pakSq = document.getElementById('pak-squad').value.trim(); const slSq = document.getElementById('sl-squad').value.trim();
+        if(!pakSq || !slSq) return; db.ref('admin_controls/squads').set({ pak: pakSq, sl: slSq }).then(() => showStatus("✅ SQUADS PUSHED!"));
+    }
+    function sendAnnouncement() {
+        const msg = document.getElementById('admin-msg').value.trim(); if(!msg) return;
+        db.ref('fan_chat').push({ user: "🛑 OFFICIAL", text: msg.toUpperCase(), type: 'text', time: Date.now(), isAdmin: true }).then(() => { showStatus("📢 SENT!"); document.getElementById('admin-msg').value = ""; });
+    }
+    function sendAdminImage() {
+        const imgUrl = document.getElementById('admin-img').value.trim(); if(!imgUrl) return;
+        db.ref('fan_chat').push({ user: "🛑 OFFICIAL", imageUrl: imgUrl, type: 'image', time: Date.now(), isAdmin: true }).then(() => { showStatus("📷 BROADCASTED!"); document.getElementById('admin-img').value = ""; });
+    }
+    function nukeChat() { if (confirm("DELETE ALL MESSAGES?")) db.ref('fan_chat').remove().then(() => showStatus("⚠️ CHAT NUKED", "var(--danger-red)")); }
+</script>
+</body>
+</html>
