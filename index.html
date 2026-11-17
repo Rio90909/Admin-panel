@@ -233,6 +233,29 @@
   .price-note{color:var(--muted);font-size:13.5px;line-height:1.65;margin-top:16px}
   .price-note strong{color:var(--text)}
 
+  /* ---------- order form ---------- */
+  .order-card{border:1px solid var(--panel-border);border-radius:24px;background:var(--panel);padding:34px 30px}
+  @media(max-width:640px){.order-card{padding:26px 20px}}
+  .oform{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.oform{grid-template-columns:1fr}}
+  .ofield{display:flex;flex-direction:column;gap:7px}
+  .ofield.full{grid-column:1/-1}
+  .ofield label{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .ofield label i{font-style:normal;color:var(--dim);letter-spacing:.03em;text-transform:none;font-weight:500}
+  .ofield input,.ofield select,.ofield textarea{font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:var(--panel);border:1px solid var(--panel-border);border-radius:12px;padding:13px 15px;width:100%;transition:border-color .2s;color-scheme:dark}
+  [data-theme="light"] .ofield input,[data-theme="light"] .ofield select,[data-theme="light"] .ofield textarea{color-scheme:light}
+  .ofield textarea{resize:vertical;min-height:92px;line-height:1.55}
+  .ofield input:focus,.ofield select:focus,.ofield textarea:focus{border-color:var(--sky);outline:none}
+  .ofield input.bad,.ofield select.bad,.ofield textarea.bad{border-color:#e5484d}
+  .btn.wa-send{background:#25D366;color:#ffffff;border:none;width:100%;justify-content:center;margin-top:20px;font-size:16px}
+  .btn.wa-send:hover{border-color:transparent}
+  .order-note{color:var(--muted);font-size:13px;line-height:1.6;text-align:center;margin-top:14px}
+
+  /* ---------- restaurant work card tile + demo links ---------- */
+  .art-d{background:radial-gradient(130% 140% at 50% 0%,#4a1c07 0%,#221006 55%,#0d0603 100%);color:#fbbf24}
+  .demo-link{color:var(--sky);font-weight:600;white-space:nowrap}
+  .demo-link:hover{text-decoration:underline}
+
   /* ---------- testimonial ---------- */
   .quote-card{border:1px solid var(--panel-border);border-radius:24px;background:var(--panel);padding:40px 34px;text-align:center}
   .quote-card blockquote{font-family:'Space Grotesk';font-size:clamp(22px,4.4vw,30px);line-height:1.35;letter-spacing:.01em}
@@ -304,7 +327,7 @@
       RIO<em>.</em>
     </a>
     <div class="nav-links">
-      <a href="#work">WORK</a><a href="#services">SERVICES</a><a href="#prices">PRICES</a><a href="#contact">CONTACT</a>
+      <a href="#work">WORK</a><a href="#services">SERVICES</a><a href="#prices">PRICES</a><a href="#order">ORDER</a><a href="#contact">CONTACT</a>
     </div>
   </div>
 </nav>
@@ -395,6 +418,18 @@
           <h3>Aniclipse — Anime Tracker</h3>
           <p>A full anime tracking app I built for my own hobby — challenges, a music player, friends and a live leaderboard. Proof I can build real apps, not just pages.</p>
           <a class="visit" href="https://www.aniclipse.online/" target="_blank" rel="noopener">Visit site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
+      </article>
+
+      <article class="wcard reveal">
+        <div class="art art-d">
+          <span class="badge blue">Live Demo</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 19.5h17"/><path d="M5 19.5a7 7 0 0 1 14 0"/><path d="M12 12.5V11"/><circle cx="12" cy="9.6" r="1.1"/><path d="M8 22h8"/></svg>
+        </div>
+        <div class="body">
+          <h3>Restaurant Page — Template</h3>
+          <p>A restaurant page with a smart WhatsApp order form — customers order without a single phone call.</p>
+          <a class="visit" href="restaurant-template.html">View template <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         </div>
       </article>
     </div>
@@ -494,11 +529,11 @@
         <div class="amt">from $29<small>≈ €26 · ≈ PKR 8,000</small></div>
       </div>
       <div class="prow">
-        <div class="what"><b>Restaurant Page</b><span>Menu + WhatsApp order button.</span></div>
+        <div class="what"><b>Restaurant Page</b><span>Menu + WhatsApp order button. <a class="demo-link" href="restaurant-template.html">See demo &rarr;</a></span></div>
         <div class="amt">$19<small>≈ €17 · ≈ PKR 5,300</small></div>
       </div>
       <div class="prow">
-        <div class="what"><b>Restaurant Full Website</b><span>Menu, gallery, location and booking.</span></div>
+        <div class="what"><b>Restaurant Full Website</b><span>Menu, gallery, location and booking. <a class="demo-link" href="restaurant-template.html">See demo &rarr;</a></span></div>
         <div class="amt">from $39<small>≈ €35 · ≈ PKR 11,000</small></div>
       </div>
       <div class="prow">
@@ -547,8 +582,64 @@
     <p class="price-note reveal">About the website address: a domain&rsquo;s <strong>first year</strong> is covered by the price above — like all domains everywhere, <strong>renewals cost more</strong> in later years, and I&rsquo;ll always tell you the renewal price before you decide. Paying is easy: <strong>Pakistan — Easypaisa / JazzCash. International — crypto (USDT via Binance or any major coin).</strong> Custom &amp; Shopify projects start with a <strong>25% advance</strong> — the rest only when you&rsquo;re happy. &euro;/PKR figures are approximate.</p>
   </section>
 
+  <section id="order">
+    <span class="kicker reveal">04 — Order</span>
+    <div class="sec-head reveal"><h2>Order Your Website</h2><div class="rule"></div></div>
+    <p class="sec-sub reveal">Fill this in and confirm — WhatsApp opens with everything already typed. You just tap send.</p>
+    <div class="order-card reveal">
+      <form id="orderForm" novalidate>
+        <div class="oform">
+          <div class="ofield">
+            <label for="oName">Your name</label>
+            <input id="oName" type="text" placeholder="e.g. Ahmed Khan" autocomplete="name" required>
+          </div>
+          <div class="ofield">
+            <label for="oFrom">Your country / city</label>
+            <input id="oFrom" type="text" placeholder="e.g. Dubai, UAE" autocomplete="country-name" required>
+          </div>
+          <div class="ofield full">
+            <label for="oPackage">What do you want?</label>
+            <select id="oPackage" required>
+              <option value="" disabled selected>Choose a package&hellip;</option>
+              <option value="Birthday Page ($5)">Birthday Page — $5</option>
+              <option value="Birthday Page + Photos &amp; Song ($9)">Birthday Page + Photos &amp; Song — $9</option>
+              <option value="Premium Birthday Page ($19)">Premium Birthday Page — $19</option>
+              <option value="Anniversary / Wedding Page ($12)">Anniversary / Wedding Page — $12</option>
+              <option value="Baby Shower / Welcome Baby Page ($9)">Baby Shower / Welcome Baby Page — $9</option>
+              <option value="Digital Invitation Page ($12)">Digital Invitation Page — $12</option>
+              <option value="Portfolio Website (from $29)">Portfolio Website — from $29</option>
+              <option value="Business One-Page Website (from $29)">Business One-Page Website — from $29</option>
+              <option value="Restaurant Page ($19)">Restaurant Page — $19</option>
+              <option value="Restaurant Full Website (from $39)">Restaurant Full Website — from $39</option>
+              <option value="Salon / Barber Page ($19)">Salon / Barber Page — $19</option>
+              <option value="Shop Landing Page ($24)">Shop Landing Page — $24</option>
+              <option value="Link-in-Bio Page ($7)">Link-in-Bio Page — $7</option>
+              <option value="Custom Web Design (from $39)">Custom Web Design — from $39</option>
+              <option value="Custom Template (from $15)">Custom Template — from $15</option>
+              <option value="Landing Page ($15)">Landing Page — $15</option>
+              <option value="Shopify Store Design (from $49)">Shopify Store Design — from $49</option>
+              <option value="Website Makeover (from $19)">Website Makeover — from $19</option>
+              <option value="Your Own Domain (+$15)">Your Own Domain — +$15</option>
+              <option value="Monthly Care Plan ($5/month)">Monthly Care Plan — $5/month</option>
+            </select>
+          </div>
+          <div class="ofield full">
+            <label for="oDetails">Tell me more <i>(optional)</i></label>
+            <textarea id="oDetails" placeholder="Anything I should know — whose birthday, your shop's name, colours you like&hellip;"></textarea>
+          </div>
+          <div class="ofield full">
+            <label for="oEmail">Email <i>(optional)</i></label>
+            <input id="oEmail" type="email" placeholder="you@example.com" autocomplete="email">
+          </div>
+        </div>
+        <button class="btn wa-send" type="submit">Confirm on WhatsApp &rarr;</button>
+        <p class="order-note">This opens WhatsApp with everything already typed — you just tap send. No forms stored, nothing saved.</p>
+      </form>
+    </div>
+  </section>
+
   <section id="process">
-    <span class="kicker reveal">04 — Process</span>
+    <span class="kicker reveal">05 — Process</span>
     <div class="sec-head reveal"><h2>How It Works</h2><div class="rule"></div></div>
     <p class="sec-sub reveal">Three steps, all on WhatsApp. No forms, no fuss.</p>
     <div class="steps">
@@ -559,7 +650,7 @@
   </section>
 
   <section id="faq">
-    <span class="kicker reveal">05 — FAQ</span>
+    <span class="kicker reveal">06 — FAQ</span>
     <div class="sec-head reveal"><h2>Questions</h2><div class="rule"></div></div>
     <p class="sec-sub reveal">Everything people usually ask before ordering.</p>
     <div class="faq">
@@ -571,7 +662,7 @@
   </section>
 
   <section id="about">
-    <span class="kicker reveal">06 — About</span>
+    <span class="kicker reveal">07 — About</span>
     <div class="sec-head reveal"><h2>About</h2><div class="rule"></div></div>
     <div class="about-box reveal">
       <img class="about-photo" src="data:image/jpeg;base64,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" alt="Rio">
@@ -685,6 +776,44 @@
       try{ localStorage.setItem('rio-theme', toLight ? 'light' : 'dark'); }catch(e){}
       syncThemeMeta();
       setTimeout(function(){ root.classList.remove('theme-anim'); }, 380);
+    });
+  }
+
+  // Smart order form — everything is typed into WhatsApp for the visitor
+  var orderForm = document.getElementById('orderForm');
+  if(orderForm){
+    var oFields = {
+      name: document.getElementById('oName'),
+      from: document.getElementById('oFrom'),
+      pkg: document.getElementById('oPackage'),
+      details: document.getElementById('oDetails'),
+      email: document.getElementById('oEmail')
+    };
+    ['name', 'from', 'pkg'].forEach(function(k){
+      var f = oFields[k];
+      if(!f) return;
+      f.addEventListener('input', function(){ f.classList.remove('bad'); });
+      f.addEventListener('change', function(){ f.classList.remove('bad'); });
+    });
+    orderForm.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      var ok = true;
+      ['name', 'from', 'pkg'].forEach(function(k){
+        var f = oFields[k];
+        var empty = !f.value || !f.value.trim();
+        f.classList.toggle('bad', empty);
+        if(empty) ok = false;
+      });
+      if(!ok) return;
+      var details = oFields.details.value.trim();
+      var email = oFields.email.value.trim();
+      var msg = 'Hi Rio! I want to order a website.\n' +
+        'Name: ' + oFields.name.value.trim() + '\n' +
+        'From: ' + oFields.from.value.trim() + '\n' +
+        'Package: ' + oFields.pkg.value + '\n' +
+        'Details: ' + (details || '\u2014') + '\n' +
+        'Email: ' + (email || '\u2014');
+      window.open('https://wa.me/923223156595?text=' + encodeURIComponent(msg), '_blank');
     });
   }
 
