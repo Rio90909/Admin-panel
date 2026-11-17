@@ -105,14 +105,7 @@
   [data-theme="light"] .float-theme .ic-sun{display:none}
   [data-theme="light"] .float-theme .ic-moon{display:block}
   .float-theme:active{transform:scale(.92)}
-  .float-wa{right:20px;width:56px;height:56px;background:#25D366;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .2s}
-  .float-wa:hover{transform:translateY(-2px)}
-  .float-wa svg{width:29px;height:29px;display:block;position:relative;z-index:1}
-  .float-wa::before{content:"";position:absolute;inset:0;border-radius:50%;background:#25D366;animation:waPulse 2.4s ease-out infinite}
-  @keyframes waPulse{0%{transform:scale(1);opacity:.5}70%{transform:scale(1.45);opacity:0}100%{transform:scale(1.45);opacity:0}}
-  .wa-label{position:absolute;right:68px;top:50%;transform:translateY(-50%) translateX(6px);background:var(--nav-bg);color:var(--text);border:1px solid var(--panel-border);font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:99px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
-  .float-wa:hover .wa-label,.float-wa:focus-visible .wa-label{opacity:1;transform:translateY(-50%) translateX(0)}
-  @media(max-width:560px){.float-theme{bottom:16px;left:16px}.float-wa{bottom:16px;right:16px}}
+  @media(max-width:560px){.float-theme{bottom:16px;left:16px}}
   @media(max-width:560px){.nav-links{gap:18px;font-size:12px}}
   @media(max-width:400px){.nav-links a:nth-child(2){display:none}}
 
@@ -171,6 +164,7 @@
 
   /* ---------- sections ---------- */
   section{padding:64px 0 8px;content-visibility:auto;contain-intrinsic-size:auto 620px}
+  section[id]{scroll-margin-top:84px}
   .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
   .sec-head h2{font-size:clamp(26px,5vw,36px);letter-spacing:.05em}
   .sec-head .rule{flex:1;height:1px;background:linear-gradient(90deg,rgba(56,189,248,.4),var(--panel-border),transparent)}
@@ -719,10 +713,6 @@
   <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg>
   <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.6 14.2A8.5 8.5 0 0 1 9.8 3.4a.6.6 0 0 0-.8-.8 10.5 10.5 0 1 0 12.4 12.4.6.6 0 0 0-.8-.8z"/></svg>
 </button>
-<a class="float-btn float-wa" href="https://wa.me/923223156595?text=Hi%20Rio!%20I%20want%20a%20website." target="_blank" rel="noopener" aria-label="Chat with me on WhatsApp">
-  <span class="wa-label">Chat with me</span>
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2zm0 18.13a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.22 8.22 0 0 1 8.24 8.24c0 4.54-3.7 8.24-8.25 8.24zm4.52-6.16c-.25-.13-1.47-.72-1.69-.81-.22-.08-.39-.12-.55.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.13-1.05-.38-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.13-.55-1.35-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.68.31-.25.25-.93.92-.93 2.27s.96 2.65 1.09 2.83c.13.18 1.88 2.87 4.56 4.03.64.28 1.14.44 1.53.57.64.2 1.23.17 1.69.11.52-.08 1.58-.48 1.83-.97.25-.48.25-.9.18-1-.07-.09-.25-.15-.5-.28z"/></svg>
-</a>
 
 <script>
 (function(){

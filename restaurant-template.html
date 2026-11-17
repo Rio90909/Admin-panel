@@ -19,7 +19,7 @@
   img{display:block;max-width:100%}
   a{color:inherit}
   .oswald{font-family:'Oswald',sans-serif}
-  section{scroll-margin-top:96px}
+  section{scroll-margin-top:138px}
 
   /* ---------- template badge bar ---------- */
   .topbar{background:#000;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
@@ -29,8 +29,13 @@
   .backlink svg{width:14px;height:14px;stroke:var(--red)}
   .backlink:active{color:var(--red)}
 
-  /* ---------- sticky header ---------- */
-  header{position:sticky;top:0;z-index:50;background:var(--black);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
+  /* ---------- sticky header + jump chips ---------- */
+  .stickyhead{position:sticky;top:0;z-index:50}
+  header{background:var(--black);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:14px 16px}
+  .chipbar{display:flex;gap:8px;overflow-x:auto;background:#000;border-bottom:1px solid var(--line);padding:10px 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .chipbar::-webkit-scrollbar{display:none}
+  .jchip{flex:none;font-family:'Oswald',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--white);background:var(--coal);border:1px solid var(--line);border-radius:999px;padding:8px 15px;text-decoration:none;transition:border-color .15s ease,color .15s ease}
+  .jchip:active{border-color:var(--red);color:var(--red)}
   .wordmark{font-family:'Oswald',sans-serif;font-weight:700;font-size:24px;letter-spacing:.04em;text-transform:uppercase;line-height:1;text-decoration:none}
   .wordmark span{color:var(--red)}
   .wordmark small{display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.34em;color:var(--grey);font-weight:600;margin-top:3px}
@@ -70,13 +75,16 @@
   .sec-kicker{color:var(--red);font-size:12px;font-weight:800;letter-spacing:.3em;text-transform:uppercase}
   .sec-head h2{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(34px,9vw,54px);line-height:1.02;margin-top:8px}
   .sec-sub{color:var(--grey);font-size:15px;line-height:1.6;margin-top:10px;max-width:560px}
-  .cat{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:19px;margin:36px 0 16px;display:flex;align-items:center;gap:12px}
+  .cat{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:19px;margin:36px 0 16px;display:flex;align-items:center;gap:12px;scroll-margin-top:142px}
   .cat::after{content:"";flex:1;height:1px;background:var(--line)}
   .cat em{font-style:normal;color:var(--red);font-size:13px;letter-spacing:.2em}
+  .cat .swipe-hint{font-family:'Inter',sans-serif;font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:none;color:var(--grey);white-space:nowrap}
 
-  /* ---------- menu cards ---------- */
-  .grid{display:grid;grid-template-columns:1fr;gap:16px}
-  @media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+  /* ---------- menu cards (horizontal snap rows) ---------- */
+  .grid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:6px 16px 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .grid::-webkit-scrollbar{display:none}
+  .grid .card{flex:0 0 78%;scroll-snap-align:start}
+  @media(min-width:640px){.grid .card{flex-basis:320px}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:border-color .2s ease}
   .card.in-cart{border-color:var(--red)}
   .card .ph{position:relative;aspect-ratio:16/10;overflow:hidden;background:#1d1d1d}
@@ -145,7 +153,7 @@
   footer p{color:var(--grey);font-size:13px;line-height:1.7;margin-top:12px}
   footer .backlink{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
 
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
   .reveal.in{opacity:1;transform:none}
   @media (prefers-reduced-motion: reduce){
     .reveal{opacity:1;transform:none;transition:none}
@@ -162,11 +170,18 @@
     <a class="backlink" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>Back to Portfolio</a>
   </div>
 
-  <!-- ══════════ HEADER ══════════ -->
-  <header>
-    <a class="wordmark" href="#">Demo<span>·</span>Bites<small>Fast Food Kitchen</small></a>
-    <a class="btn btn-red" href="#order">Order Now</a>
-  </header>
+  <!-- ══════════ HEADER + JUMP CHIPS (sticky) ══════════ -->
+  <div class="stickyhead">
+    <header>
+      <a class="wordmark" href="#">Demo<span>·</span>Bites<small>Fast Food Kitchen</small></a>
+      <a class="btn btn-red" href="#order">Order Now</a>
+    </header>
+    <nav class="chipbar" aria-label="Jump to section">
+      <a class="jchip" href="#burgers">Burgers &amp; Grill</a>
+      <a class="jchip" href="#pizza">Pizza &amp; Sides</a>
+      <a class="jchip" href="#order">Order</a>
+    </nav>
+  </div>
 
   <!-- ══════════ HERO ══════════ -->
   <section class="hero">
@@ -204,7 +219,7 @@
         <p class="sec-sub">Tap + to build your order — the total adds itself up, and the whole thing lands on WhatsApp in one clean message.</p>
       </div>
 
-      <div class="cat reveal">Burgers &amp; Grill <em>01</em></div>
+      <div class="cat reveal" id="burgers">Burgers &amp; Grill <em>01</em><span class="swipe-hint">Swipe &rarr;</span></div>
       <div class="grid">
 
         <article class="card reveal" id="item-0">
@@ -272,7 +287,7 @@
         </article>
       </div>
 
-      <div class="cat reveal">Pizza &amp; Sides <em>02</em></div>
+      <div class="cat reveal" id="pizza">Pizza &amp; Sides <em>02</em><span class="swipe-hint">Swipe &rarr;</span></div>
       <div class="grid">
 
         <article class="card reveal" id="item-4">
@@ -480,10 +495,20 @@
     });
   });
 
-  // ---------- reveal on scroll ----------
+  // ---------- reveal on scroll (cards stagger within their row) ----------
+  document.querySelectorAll('.grid').forEach(function(row){
+    row.querySelectorAll('.card').forEach(function(card, i){
+      card.style.transitionDelay = Math.min(i * 70, 280) + 'ms';
+    });
+  });
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      if(e.isIntersecting){
+        var target = e.target;
+        target.classList.add('in');
+        io.unobserve(target);
+        setTimeout(function(){ target.style.transitionDelay = '0ms'; }, 850);
+      }
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
