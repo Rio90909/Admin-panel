@@ -583,14 +583,6 @@
     <div class="order-card reveal">
       <form id="orderForm" novalidate>
         <div class="oform">
-          <div class="ofield">
-            <label for="oName">Your name</label>
-            <input id="oName" type="text" placeholder="e.g. Ahmed Khan" autocomplete="name" required>
-          </div>
-          <div class="ofield">
-            <label for="oFrom">Your country / city</label>
-            <input id="oFrom" type="text" placeholder="e.g. Dubai, UAE" autocomplete="country-name" required>
-          </div>
           <div class="ofield full">
             <label for="oPackage">What do you want?</label>
             <select id="oPackage" required>
@@ -615,15 +607,12 @@
               <option value="Website Makeover (from $19)">Website Makeover — from $19</option>
               <option value="Your Own Domain (+$15)">Your Own Domain — +$15</option>
               <option value="Monthly Care Plan ($5/month)">Monthly Care Plan — $5/month</option>
+              <option value="Custom Package (my own idea)">Custom Package — my own idea, not in the list</option>
             </select>
           </div>
           <div class="ofield full">
-            <label for="oDetails">Tell me more <i>(optional)</i></label>
-            <textarea id="oDetails" placeholder="Anything I should know — whose birthday, your shop's name, colours you like&hellip;"></textarea>
-          </div>
-          <div class="ofield full">
-            <label for="oEmail">Email <i>(optional)</i></label>
-            <input id="oEmail" type="email" placeholder="you@example.com" autocomplete="email">
+            <label for="oDetails">Describe what you want</label>
+            <textarea id="oDetails" placeholder="Tell me everything — whose birthday, your shop's name, colours you like&hellip; or your completely own idea." required></textarea>
           </div>
         </div>
         <button class="btn wa-send" type="submit">Confirm on WhatsApp &rarr;</button>
@@ -773,13 +762,10 @@
   var orderForm = document.getElementById('orderForm');
   if(orderForm){
     var oFields = {
-      name: document.getElementById('oName'),
-      from: document.getElementById('oFrom'),
       pkg: document.getElementById('oPackage'),
-      details: document.getElementById('oDetails'),
-      email: document.getElementById('oEmail')
+      details: document.getElementById('oDetails')
     };
-    ['name', 'from', 'pkg'].forEach(function(k){
+    ['pkg', 'details'].forEach(function(k){
       var f = oFields[k];
       if(!f) return;
       f.addEventListener('input', function(){ f.classList.remove('bad'); });
@@ -788,21 +774,16 @@
     orderForm.addEventListener('submit', function(ev){
       ev.preventDefault();
       var ok = true;
-      ['name', 'from', 'pkg'].forEach(function(k){
+      ['pkg', 'details'].forEach(function(k){
         var f = oFields[k];
         var empty = !f.value || !f.value.trim();
         f.classList.toggle('bad', empty);
         if(empty) ok = false;
       });
       if(!ok) return;
-      var details = oFields.details.value.trim();
-      var email = oFields.email.value.trim();
       var msg = 'Hi Rio! I want to order a website.\n' +
-        'Name: ' + oFields.name.value.trim() + '\n' +
-        'From: ' + oFields.from.value.trim() + '\n' +
         'Package: ' + oFields.pkg.value + '\n' +
-        'Details: ' + (details || '\u2014') + '\n' +
-        'Email: ' + (email || '\u2014');
+        'Details: ' + oFields.details.value.trim();
       window.open('https://wa.me/923223156595?text=' + encodeURIComponent(msg), '_blank');
     });
   }
