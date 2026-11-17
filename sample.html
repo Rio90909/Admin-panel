@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Ayesha 🎂 — Sample by Rio</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#1a0b2e;color:#fff;min-height:100vh;overflow-x:hidden}
+  .wrap{max-width:560px;margin:0 auto;padding:20px 18px 40px;text-align:center}
+  .sample{display:inline-block;background:#ffd166;color:#1a0b2e;font-weight:700;font-size:12px;letter-spacing:1px;padding:6px 12px;border-radius:999px;margin-bottom:18px}
+  .balloons{font-size:44px;letter-spacing:6px}
+  h1{font-size:44px;line-height:1.05;margin:14px 0 6px;background:linear-gradient(90deg,#ffd166,#ff6b9d,#c084fc);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:#e9d5ff;font-size:17px;margin-bottom:22px}
+  .cake{font-size:64px;margin:6px 0 18px}
+  .card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:20px;margin:16px 0;text-align:left}
+  .card h2{font-size:18px;margin-bottom:8px}
+  .card p{color:#e9d5ff;line-height:1.6;font-size:15px}
+  .photos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+  .ph{aspect-ratio:3/4;border-radius:14px;background:linear-gradient(160deg,#ff6b9d,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;padding:8px;text-align:center}
+  .btn{display:block;width:100%;padding:15px;border:0;border-radius:999px;font-size:16px;font-weight:700;cursor:pointer;margin:10px 0}
+  .btn-pink{background:linear-gradient(90deg,#ff6b9d,#ff8f5e);color:#fff}
+  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff}
+  #msg{display:none;margin-top:12px;color:#ffe9a8;line-height:1.6;font-size:15px}
+  .price{background:rgba(255,209,102,.12);border:1px solid rgba(255,209,102,.4)}
+  .price p{color:#ffe9a8}
+  footer{margin-top:26px;color:#c4b5fd;font-size:13px;line-height:1.6}
+  .confetti{position:fixed;top:-12px;font-size:18px;pointer-events:none;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(105vh) rotate(360deg);opacity:.9}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="sample">✦ SAMPLE PAGE — MADE BY RIO ✦</span>
+  <div class="balloons">🎈 🎉 🎈</div>
+  <h1>Happy Birthday<br>Ayesha!</h1>
+  <p class="sub">A little corner of the internet, made just for you.</p>
+  <div class="cake">🎂</div>
+
+  <div class="card">
+    <h2>💌 A message for you</h2>
+    <p>Today is your day — may it be full of laughter, cake, and the people you love most. Thank you for being you.</p>
+    <button class="btn btn-pink" onclick="document.getElementById('msg').style.display='block';this.style.display='none'">Tap to open your surprise 💝</button>
+    <p id="msg">🎉 Surprise! This is where your own words go — a message from the person who ordered this page, in their own voice. Photos, memories and your favourite song sit right here too.</p>
+  </div>
+
+  <div class="card">
+    <h2>📸 Your favourite moments</h2>
+    <p>Three photo slots — swap in real photos for a real order.</p>
+    <div class="photos">
+      <div class="ph">📷<br>Photo 1</div>
+      <div class="ph">📷<br>Photo 2</div>
+      <div class="ph">📷<br>Photo 3</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🎵 Your favourite song</h2>
+    <p>Tap play and the birthday person's favourite song plays right here.</p>
+    <button class="btn btn-ghost" onclick="alert('Demo: for a real order, your song plays here.')">▶ Play their favourite song</button>
+  </div>
+
+  <div class="card price">
+    <h2>🎂 Want one like this?</h2>
+    <p><b>PKR 300</b> — birthday page with your message<br><b>PKR 500</b> — with photos + their favourite song<br><b>+ PKR 1,200</b> — their name as its own website address</p>
+    <p style="margin-top:8px">DM Rio to order — one beautiful link, ready to send.</p>
+  </div>
+
+  <footer>Made with ❤️ by Rio<br>Portfolio &amp; business websites also available — from PKR 5,000.<br><br><small>Demo sample: name, photos, song and message are examples and can be swapped in minutes for a real order.</small></footer>
+</div>
+<script>
+  // Lightweight confetti: a few falling emoji, no heavy animation, pauses off-screen by design (few elements only)
+  const em=['🎉','✨','🎈','💛','🌸'];
+  for(let i=0;i<14;i++){const s=document.createElement('span');s.className='confetti';s.textContent=em[i%em.length];s.style.left=(Math.random()*100)+'vw';s.style.animationDuration=(4+Math.random()*4)+'s';s.style.animationDelay=(Math.random()*3)+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),9000);}
+</script>
+</body>
+</html>
